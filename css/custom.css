@@ -1,0 +1,324 @@
+/* 亮色模式文字强制纯黑 */
+/* 最高优先级全局兜底，亮色模式全部文字强制纯黑 */
+[data-theme="light"] html,
+[data-theme="light"] * {
+  color: #000 !important;
+}
+
+/* 1. 首页横幅标题（已生效，保留加固） */
+[data-theme="light"] #page-header #site-info .site-title {
+  color: #000 !important;
+  text-shadow: 0 0 3px rgba(255,255,255,0.8);
+}
+[data-theme="light"] #page-header #site-info .site-subtitle {
+  color: #000 !important;
+}
+
+/* 2. 右上角导航栏（首页、列表 白色字修复） */
+[data-theme="light"] #nav .nav-content .nav-item a,
+[data-theme="light"] #nav .nav-content .nav-icon {
+  color: #000 !important;
+}
+[data-theme="light"] #nav .nav-content .nav-item a:hover {
+  color: #009999 !important;
+}
+
+/* 3. 页脚半透明白色版权文字修复（关键，覆盖rgba透明色） */
+[data-theme="light"] #footer #footer-wrap {
+  color: #000 !important;
+  opacity: 1 !important;
+}
+[data-theme="light"] #footer #footer-wrap span,
+[data-theme="light"] #footer #footer-wrap a {
+  color: #000 !important;
+  opacity: 1 !important;
+}
+
+/* 4. 左上角半透明水印文字 */
+[data-theme="light"] .banner-mask .banner-title-left {
+  color: #000 !important;
+  opacity: 0.8 !important;
+}
+
+/* 5. 侧边栏全部卡片兜底 */
+[data-theme="light"] #aside-content .card-widget * {
+  color: #000 !important;
+}
+
+/* 6. 文章正文、标题、标签、元信息 */
+[data-theme="light"] #post-content h1,
+[data-theme="light"] #post-content h2,
+[data-theme="light"] #post-content h3,
+[data-theme="light"] #post-content p,
+[data-theme="light"] .post-meta,
+[data-theme="light"] .tag-cloud a {
+  color: #000 !important;
+}
+
+/* 7. 目录、分页、悬浮按钮、代码块 */
+[data-theme="light"] .toc-content a,
+[data-theme="light"] .pagination .page-number,
+[data-theme="light"] #rightside button,
+[data-theme="light"] pre code {
+  color: #000 !important;
+}
+
+/* 右侧悬浮按钮图标恢复深灰，不刺眼 */
+[data-theme="light"] #rightside .rightside-item i {
+  color: #444 !important;
+  background: transparent !important;
+}
+/* 按钮底色维持浅灰，不跟随文字变黑 */
+[data-theme="light"] #rightside .rightside-item {
+  background-color: #e6e6e6 !important;
+}
+
+/* 页脚与头图透明 */
+#footer {
+  background: transparent !important;
+}
+#page-header {
+  background: transparent !important;
+}
+
+/* 白天模式遮罩透明 */
+#footer::before {
+  background: transparent !important;
+}
+#page-header::before {
+  background: transparent !important;
+}
+
+/* 夜间模式遮罩透明 */
+[data-theme="dark"] #footer::before {
+  background: transparent !important;
+}
+[data-theme="dark"] #page-header::before {
+  background: transparent !important;
+}
+
+/* 音乐按钮播放动画 */
+#music-player-btn.playing {
+  animation: music-pulse 1.5s ease-in-out infinite;
+}
+@keyframes music-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* 遮罩层 */
+#music-drawer-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+#music-drawer-mask.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 抽屉面板核心样式 */
+#music-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+}
+#music-drawer.open {
+  transform: translateX(0);
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] #music-drawer {
+  background: rgba(30, 30, 46, 0.95);
+}
+[data-theme="dark"] .music-drawer-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 移动端全宽适配 */
+@media screen and (max-width: 768px) {
+  #music-drawer {
+    width: 100vw;
+  }
+}
+
+/* 播放器内部布局 */
+.music-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  background: inherit;
+  backdrop-filter: inherit;
+  z-index: 1;
+}
+.music-drawer-title {
+  font-weight: 600;
+  font-size: 16px;
+}
+.music-drawer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#music-drawer-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: inherit;
+}
+.music-player-main {
+  padding: 20px;
+  text-align: center;
+}
+.music-cover-wrap {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+#music-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#music-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#music-artist {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+.music-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+#music-progress-bar {
+  flex: 1;
+  cursor: pointer;
+}
+.music-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+.music-controls button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: inherit;
+}
+#music-btn-play {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #3eb8be;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.music-volume {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.music-volume button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+#music-volume-bar {
+  flex: 1;
+  cursor: pointer;
+}
+#music-playlist {
+  list-style: none;
+  padding: 0 16px 20px;
+  margin: 0;
+}
+.music-playlist-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.music-playlist-item:hover {
+  background: rgba(0,0,0,0.05);
+}
+.music-playlist-item.active {
+  color: #3eb8be;
+  font-weight: 500;
+}
+.track-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  margin-right: 10px;
+}
+.track-artist {
+  opacity: 0.6;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .music-playlist-item:hover {
+  background: rgba(255,255,255,0.05);
+}
+[data-theme="dark"] #music-source-switch {
+  background: #2a2a3a;
+  color: #fff;
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* 自定义字体 */
+@font-face {
+  /* 为载入的字体取名字(随意) */
+  font-family: 'YSHST';	
+  /* 字体文件地址(相对或者绝对路径都可以) */
+  src: url(/font/朝华打字机.ttf);
+  /* 定义加粗样式(加粗多少) */
+  font-weight: normal;
+  /* 定义字体样式(斜体/非斜体) */
+  font-style: normal;
+  /* 定义显示样式 */
+  font-display: block;
+}
+
