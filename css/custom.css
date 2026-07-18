@@ -434,8 +434,16 @@ div#archive {
   display: flex !important;
 }
 /* 这里的2是代表导航栏的第2个元素，即有子菜单的元素，可以按自己需求修改 */
-.menus_items .menus_item:nth-child(2) .menus_item_child {
+/* .menus_items .menus_item:nth-child(2) .menus_item_child {
   left: -125px;
+} */
+/* #nav .menus_items .menus_item {
+  position: relative !important;
+} */
+#nav .menus_items .menus_item_child {
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
 }
 
 /* 引入iconfont自定义图标（店长） */
