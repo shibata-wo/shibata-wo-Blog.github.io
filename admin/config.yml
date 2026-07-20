@@ -1,0 +1,151 @@
+# Decap CMS Configuration for Hexo Blog
+# https://decapcms.org/docs/
+
+backend:
+  name: github
+  repo: shibata-wo/hexo-source
+  branch: main
+  base_url: https://hexo-oauth-provider.vercel.app   # 部署 OAuth 代理后替换此处
+  auth_endpoint: api/auth
+
+# 本地开发模式（可选，测试时使用）
+# local_backend: true
+
+# 由于 OAuth 代理尚未部署，先启用 test-repo 模式预览
+# 注释掉上面的 backend 配置，取消下面两行的注释即可在无 OAuth 时预览 UI
+# backend:
+#   name: test-repo
+
+media_folder: source/img
+public_folder: /img
+
+site_url: https://shibata-wo.github.io
+display_url: https://shibata-wo.github.io
+
+locale: zh_Hans
+
+# 限定可访问分支（可选）
+# publish_mode: editorial_workflow
+
+collections:
+  # ============================================
+  # 1. 休闲哲学
+  # ============================================
+  - name: philosophy
+    label: "休闲哲学"
+    label_singular: "文章"
+    folder: source/_posts/休闲哲学
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    slug: "{{title}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
+      - { label: "分类", name: "categories", widget: "list", default: ["休闲哲学"] }
+      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # ============================================
+  # 2. 后现代主义
+  # ============================================
+  - name: postmodern
+    label: "后现代主义"
+    label_singular: "文章"
+    folder: source/_posts/后现代主义
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    slug: "{{title}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
+      - { label: "分类", name: "categories", widget: "list", default: ["后现代主义"] }
+      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # ============================================
+  # 3. 技术文件
+  # ============================================
+  - name: tech
+    label: "技术文件"
+    label_singular: "文章"
+    folder: source/_posts/技术文件
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    slug: "{{title}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
+      - { label: "分类", name: "categories", widget: "list", default: ["技术文件"] }
+      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # ============================================
+  # 4. 新闻报道
+  # ============================================
+  - name: news
+    label: "新闻报道"
+    label_singular: "文章"
+    folder: source/_posts/新闻报道
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    slug: "{{title}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
+      - { label: "分类", name: "categories", widget: "list", default: ["新闻报道"] }
+      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "轮播索引", name: "swiper_index", widget: "number", required: false, hint: "用于首页轮播排序，数字越小越靠前" }
+      - { label: "封面图", name: "cover", widget: "image", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # ============================================
+  # 5. 电子测评
+  # ============================================
+  - name: electronics
+    label: "电子测评"
+    label_singular: "文章"
+    folder: source/_posts/电子产品
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    slug: "{{title}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
+      - { label: "分类", name: "categories", widget: "list", default: ["电子测评"] }
+      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # ============================================
+  # 6. 日记
+  # ============================================
+  - name: diary
+    label: "日记"
+    label_singular: "文章"
+    folder: source/_posts/日记
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    slug: "{{title}}"
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm:ss" }
+      - { label: "分类", name: "categories", widget: "list", default: ["日记"] }
+      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
