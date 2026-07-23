@@ -366,17 +366,28 @@ div#post, div#page, div#archive {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 40px !important; height: 40px !important;
-  border-radius: 50% !important;
+  width: 35px !important; height: 35px !important;
+  border-radius: 4px !important;  
   background: rgba(255,255,255,0.7) !important;
   backdrop-filter: blur(10px) saturate(150%);
   border: 1px solid rgba(255,255,255,0.25) !important;
   cursor: pointer !important;
   transition: all 0.3s ease !important;
 }
+
 #music-player-btn:hover { background: rgba(255,255,255,0.9) !important; transform: scale(1.1); }
 #music-player-btn.playing i { animation: musicPulse 1.5s ease-in-out infinite; }
 @keyframes musicPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+/*入口按钮动画*/
+#music-player-btn.playing {
+  animation: music-pulse 1.5s ease-in-out infinite;
+}
+@keyframes music-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
 
 #music-drawer-mask { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 9998; }
 #music-drawer-mask.open { display: block; }
@@ -445,14 +456,8 @@ div#post, div#page, div#archive {
 }
 
 /* =============================================
-   水波纹特效画布 - Hexo首页
-   鼠标左键拖动产生晕开效果
-   ============================================= */
-/* =============================================
    首页首屏水波纹效果
-   作用于 #page-header.full_page 内部
    ============================================= */
-/* 首页首屏水波纹特效 */
 #page-header.full_page {
   position: relative;
   overflow: hidden;
@@ -498,66 +503,73 @@ div#post, div#page, div#archive {
    自定义小灯泡滚动条（右侧专属滚动区）
    ============================================= */
 #custom-scrollbar {
-  position: fixed;
-  top: 0;
-  right: 6px;
-  width: 24px;
-  height: 100vh;
-  z-index: 9999;
-  pointer-events: auto;
-  display: flex;
-  justify-content: center;
-  padding: 20px 0;
-  box-sizing: border-box;
-  user-select: none;
-  -webkit-user-select: none;
+  position: fixed; /* 固定定位，不随页面滚动 */
+  top: 0; /* 顶部贴合窗口 */
+  right: 6px; /* 距离右侧 6px */
+  width: 10px; /* 滚动条区域宽度 */
+  height: 100vh; /* 高度占满整个视口 */
+  z-index: 9999; /* 保证显示在最上层 */
+  pointer-events: auto; /* 允许鼠标/触摸操作 */
+  display: flex; /* 使用弹性布局 */
+  justify-content: center; /* 水平居中滚动轨道 */
+  padding: 20px 0; /* 上下留出空间 */
+  box-sizing: border-box; /* 包含 padding 计算尺寸 */
+  user-select: none; /* 禁止选中文本 */
+  -webkit-user-select: none; /* Safari 兼容 */
 }
-
+/* -----------------------------------------------------------
+   滚动轨道
+   ----------------------------------------------------------- */
 .scroll-track {
-  position: relative;
-  width: 2px;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 1px;
+  position: relative; /* 为滑块定位提供参考 */
+  width: 2px; /* 轨道宽度 */
+  height: 100%; /* 占满容器高度 */
+  background: rgba(0, 0, 0, 0.15); /* 半透明黑色轨道 */
+  border-radius: 1px; /* 圆角效果 */
 }
-
-/* 小灯泡滑块 */
+/* -----------------------------------------------------------
+   灯泡形滚动滑块
+   ----------------------------------------------------------- */
 .scroll-thumb {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  width: 22px;
-  height: 28px;
-  background: #ffd700;
-  border: 2px solid #000;
+  position: absolute; /* 相对于轨道定位 */
+  left: 50%; /* 水平居中 */
+  transform: translateX(-50%); /* 修正自身宽度造成的偏移 */
+  top: 0; /* 初始位于顶部 */
+  width: 22px; /* 灯泡主体宽度 */
+  height: 28px; /* 灯泡主体高度 */
+  background: #ffd700; /* 金黄色灯泡 */
+  border: 2px solid #000; /* 黑色边框 */
+  /* 制作灯泡椭圆形 */
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  cursor: grab;
+  cursor: grab; /* 鼠标悬停显示抓取状态 */
+  /* 阴影增加立体感 */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease; /* 缩放动画 */
 }
-
+/* 拖动灯泡时效果 */
 .scroll-thumb:active {
-  cursor: grabbing;
-  transform: translateX(-50%) scale(1.1);
+  cursor: grabbing; /* 鼠标变为抓取状态 */
+  transform: translateX(-50%) scale(1.1); /* 放大效果 */
 }
-
-/* 灯泡灯头 */
+/* -----------------------------------------------------------
+   灯泡底部灯头
+   ----------------------------------------------------------- */
 .scroll-thumb::after {
-  content: "";
+  content: ""; /* 创建伪元素 */
   position: absolute;
-  bottom: -6px;
+  bottom: -6px; /* 位于主体下方 */
   left: 50%;
   transform: translateX(-50%);
   width: 10px;
   height: 6px;
-  background: #ffd700;
+  background: #ffd700; /* 保持灯泡颜色 */
   border: 2px solid #000;
-  border-top: none;
-  border-radius: 0 0 4px 4px;
+  border-top: none; /* 去除顶部边框 */
+  border-radius: 0 0 4px 4px; /* 灯头圆角 */
 }
-
-/* 灯泡钨丝高光 */
+/* -----------------------------------------------------------
+   灯泡顶部高光 / 钨丝效果
+   ----------------------------------------------------------- */
 .scroll-thumb::before {
   content: "";
   position: absolute;
@@ -566,25 +578,34 @@ div#post, div#page, div#archive {
   transform: translateX(-50%);
   width: 8px;
   height: 8px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6); /* 半透明白色高光 */
+  border-radius: 50%; /* 圆形 */
 }
-
-/* 内容不足一屏时隐藏滚动条 */
+/* -----------------------------------------------------------
+   页面内容不足一屏时隐藏滚动条
+   ----------------------------------------------------------- */
 #custom-scrollbar.hidden {
   display: none;
 }
-
-/* 平板端波纹交互区补充：禁止默认触摸滚动，避免冲突 */
+/* -----------------------------------------------------------
+   波纹交互区域适配
+   禁止默认触摸行为
+   防止触摸滚动与自定义交互冲突
+   ----------------------------------------------------------- */
 #header-water-handle {
-  touch-action: none;
-  -webkit-touch-callout: none;
+  touch-action: none; /* 禁止浏览器默认触摸动作 */
+  -webkit-touch-callout: none; /* 禁止长按菜单 */
 }
+/* -----------------------------------------------------------
+   深色模式适配
+   ----------------------------------------------------------- */
 
-/* 深色模式适配滚动条 */
+/* 深色模式下调整轨道颜色 */
 [data-theme="dark"] .scroll-track {
   background: rgba(255, 255, 255, 0.15);
 }
+/* 深色模式下增强灯泡阴影 */
 [data-theme="dark"] .scroll-thumb {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
+
